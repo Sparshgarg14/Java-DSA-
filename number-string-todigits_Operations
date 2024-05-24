@@ -1,0 +1,18 @@
+ public  static int countEven(int num) {
+
+        int count =0;
+        for(int i=1;i<=num;i++){
+            String s  = String.valueOf(i);
+            char [] res = s.toCharArray();
+            int sum=0;
+            for(int j =0;j<res.length;j++){
+                if(Character.isDigit(res[j])){
+                    int digit = res[j]-'0';
+                    sum += res[j];
+                }
+            }
+            if(sum%2==0)count++;
+        }
+        return count;
+
+    }
