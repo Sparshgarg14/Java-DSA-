@@ -1,0 +1,14 @@
+// String ka array given and we need to find if our word has a prefix  pref (given)..
+take a for each loop aese me and just iterate over the array and check the substring!!!!!
+
+
+class Solution {
+    public int prefixCount(String[] words, String pref) {
+        int count=0;
+        for(String word: words){
+            if(word.length()>=pref.length() && word.substring(0,pref.length()).equals(pref))
+            count++;
+        }
+        return count;
+    }
+}
