@@ -1,0 +1,198 @@
+import java.io.*;
+import java.sql.Array;
+import java.util.*;
+
+// JAI SHREE RAM  JAI BAJRANGBALI//
+
+public class CodeForces {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        FastReader fr = new FastReader();
+        int nmax = (int) (1e5 + 7);
+        int t = fr.nextInt();
+
+        while (t-- > 0) {
+         String x = fr.next();
+         String y = fr.next();
+         int n = x.length();
+         int cnt=0;
+         int ok=1;
+         int tt=0;
+            StringBuilder x1  =new StringBuilder();
+            StringBuilder y1 = new StringBuilder();
+            if(x.length()==1){
+                System.out.println(x);
+                System.out.println(y);
+                continue;
+            }
+         while(ok!=0 && cnt<n){
+             if( x.charAt(cnt)!= y.charAt(cnt)){
+                 ok=0;
+                 if(x.charAt(cnt)< y.charAt(cnt))tt=1;
+             }
+             x1.append(x.charAt(cnt));
+             y1.append(y.charAt(cnt));
+             cnt++;
+         }
+
+//            System.out.println(cnt);
+            for (int i = cnt; i <n ; i++) {
+                if(tt==1){
+                    if(y.charAt(i)> x.charAt(i)){
+                        x1.append(y.charAt(i));
+                        y1.append(x.charAt(i));
+                    }
+                    else{
+                        x1.append(x.charAt(i));
+                        y1.append(y.charAt(i));
+                    }
+
+                }
+                else{
+                    if(x.charAt(i)> y.charAt(i)){
+                        y1.append(x.charAt(i));
+                        x1.append(y.charAt(i));
+                    }
+                    else{
+                        x1.append(x.charAt(i));
+                        y1.append(y.charAt(i));
+                    }
+
+                }
+            }
+            System.out.println(x1.toString());
+            System.out.println(y1.toString());
+
+        }
+    }
+
+
+
+    public static class Pair {
+        public int a;
+        public int  b;
+        public int hashCode;
+
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+            this.hashCode = Objects.hash(a, b);
+        }
+
+
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
+        }
+    }
+
+}
+
+
+
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                // Read the next line
+                String line = br.readLine();
+
+                // Check if the line is null
+                if (line == null) {
+                    return null;  // Handle end of input or unexpected input issues
+                }
+
+                // Initialize the StringTokenizer with the read line
+                st = new StringTokenizer(line);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) {
+                str = st.nextToken("\n");
+            } else {
+                str = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
+
+
+
+//        // Method to calculate GCD using Euclidean algorithm
+//        public static int gcd(int a, int b) {
+//            if (b == 0) {
+//                return a;
+//            }
+//            return gcd(b, a % b);
+//        }
+// Custom implementation of upper_bound to mimic C++ behavior
+//    private static int upperBound(List<Integer> list, int key) {
+//        int low = 0, high = list.size();
+//        while (low < high) {
+//            int mid = (low + high) / 2;
+//            if (list.get(mid) <= key) {
+//                low = mid + 1;
+//            } else {
+//                high = mid;
+//            }
+//        }
+//        return low;
+//    }
+//static long pow(long x, long q) {
+//    if (q == 0) {
+//        return 1;
+//    }
+//    long i = pow(x, q / 2);
+//    if (q % 2 == 0) {
+//        return (i * i) % p;
+//    }
+//    return (i * i * x) % p;
+//}
