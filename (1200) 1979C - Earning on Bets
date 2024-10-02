@@ -1,0 +1,184 @@
+import java.io.*;
+import java.math.BigInteger;
+import java.sql.Array;
+import java.util.*;
+
+// JAI SHREE RAM  JAI BAJRANGBALI//
+
+public class CodeForces {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FastReader fr = new FastReader();
+        int nmax = (int) (1e5 + 7);
+        int t = fr.nextInt();
+        while (t-- > 0) {
+     int n = fr.nextInt();
+    int a[] = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = fr.nextInt();
+            }
+
+            int res = lcmOfArray(a)-1;
+
+            int b[] = new int[n];
+            int checksum=0;
+            for (int i = 0; i < n; i++) {
+                b[i] = (res + a[i])/a[i];
+                checksum+=b[i];
+            }
+//            System.out.println(Arrays.toString(b));
+          if(res<checksum) {
+              System.out.println(-1);
+              continue;
+          }
+          else{
+              for(int i :b){
+                  System.out.print(i + " ");
+              }
+              System.out.println();
+          }
+        }
+    }
+    public static int gcd(int a, int b) {
+        return BigInteger.valueOf(a).gcd(BigInteger.valueOf(b)).intValue();
+    }
+
+    // Function to return the LCM of two numbers
+    public static int lcm(int a, int b) {
+        // To avoid overflow, we first divide by gcd
+        return (a / gcd(a, b)) * b; // LCM formula
+    }
+
+    // Function to return the LCM of an array of numbers
+    public static int lcmOfArray(int[] arr) {
+        int lcmResult = arr[0]; // Initialize with the first element
+
+        for (int i = 1; i < arr.length; i++) {
+            lcmResult = lcm(lcmResult, arr[i]); // Find LCM iteratively
+        }
+
+        return lcmResult;
+    }
+
+    public static class Pair {
+        public int a;
+        public int  b;
+        public int hashCode;
+
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+            this.hashCode = Objects.hash(a, b);
+        }
+
+
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
+        }
+    }
+
+}
+
+
+
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                // Read the next line
+                String line = br.readLine();
+
+                // Check if the line is null
+                if (line == null) {
+                    return null;  // Handle end of input or unexpected input issues
+                }
+
+                // Initialize the StringTokenizer with the read line
+                st = new StringTokenizer(line);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) {
+                str = st.nextToken("\n");
+            } else {
+                str = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
+
+
+
+//        // Method to calculate GCD using Euclidean algorithm
+//
+// Custom implementation of upper_bound to mimic C++ behavior
+//    private static int upperBound(List<Integer> list, int key) {
+//        int low = 0, high = list.size();
+//        while (low < high) {
+//            int mid = (low + high) / 2;
+//            if (list.get(mid) <= key) {
+//                low = mid + 1;
+//            } else {
+//                high = mid;
+//            }
+//        }
+//        return low;
+//    }
+//static long pow(long x, long q) {
+//    if (q == 0) {
+//        return 1;
+//    }
+//    long i = pow(x, q / 2);
+//    if (q % 2 == 0) {
+//        return (i * i) % p;
+//    }
+//    return (i * i * x) % p;
+//}
