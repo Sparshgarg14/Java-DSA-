@@ -1,0 +1,138 @@
+import javax.management.MBeanRegistration;
+import java.io.*;
+import java.math.BigInteger;
+import java.sql.Array;
+import java.util.*;
+
+// JAI SHREE RAM  JAI BAJRANGBALI//
+
+public class CodeForces {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FastReader fr = new FastReader();
+        int nmax = (int) (2e5 + 7);
+        int t = fr.nextInt();
+        int pref[] = new int[nmax];
+        int a[] = new int[nmax];
+        pref[0] = 0;
+        for (int i = 1; i < pref.length; i++) {
+            int x = f(i);
+            a[i] = x;
+            pref[i] = pref[i-1] + x;
+        }
+        while (t-- > 0) {
+         int l = fr.nextInt();
+         int r  = fr.nextInt();
+         System.out.println(pref[r]- pref[l-1] + a[l]);
+        }
+    }
+    public static int f(int u){
+        int cnt=0;
+        while(u!=0){
+            u/=3;
+            cnt++;
+        }
+        return  cnt ;
+    }
+
+
+
+
+
+
+    public static class Pair {
+        public int a;
+        public int  b;
+        public int hashCode;
+
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+            this.hashCode = Objects.hash(a, b);
+        }
+
+
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
+        }
+    }
+
+}
+
+
+
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                // Read the next line
+                String line = br.readLine();
+
+                // Check if the line is null
+                if (line == null) {
+                    return null;  // Handle end of input or unexpected input issues
+                }
+
+                // Initialize the StringTokenizer with the read line
+                st = new StringTokenizer(line);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) {
+                str = st.nextToken("\n");
+            } else {
+                str = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
+
+
