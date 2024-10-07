@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();  // Number of test cases
+        
+        while (t-- > 0) {
+            int n = sc.nextInt();  // Length of the string
+            String a = sc.next();  // Input string
+            
+            // Suffix count array for number of '1's
+            int[] suf_cnt = new int[n + 1];
+            
+            // Calculating suffix count of '1's
+            for (int i = n - 1; i >= 0; i--) {
+                suf_cnt[i] = suf_cnt[i + 1] + (a.charAt(i) == '1' ? 1 : 0);
+            }
+            
+            int pref_cnt = 0; // Count of '0's in prefix
+            int opt_ans = -1; // Optimal answer (index)
+            int opt_dist = n * 2; // Large initial distance
+            int threshold = (n + 1) / 2; // Threshold for balancing
+            
+            // Iterate over all possible split points
+            for (int i = 0; i <= n; i++) {
+                if (pref_cnt >= (i + 1) / 2 && suf_cnt[i] >= (n - i + 1) / 2 
+                        && Math.abs(n - 2 * i) < opt_dist) {
+                    opt_dist = Math.abs(n - 2 * i);
+                    opt_ans = i;
+                }
+                
+                // Update prefix count of '0's
+                if (i != n) {
+                    pref_cnt += (a.charAt(i) == '0' ? 1 : 0);
+                }
+            }
+            
+            System.out.println(opt_ans);
+        }
+        sc.close();
+    }
+}
