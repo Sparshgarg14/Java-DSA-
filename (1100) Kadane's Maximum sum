@@ -1,0 +1,152 @@
+import javax.management.MBeanRegistration;
+import java.io.*;
+import java.math.BigInteger;
+import java.sql.Array;
+import java.util.*;
+
+// JAI SHREE RAM  JAI BAJRANGBALI//
+
+public class CodeForces {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FastReader fr = new FastReader();
+        long nmax = (long) (1e9 + 7);
+        int t = fr.nextInt();
+        while (t-- > 0) {
+            int n  = fr.nextInt();
+            long k = fr.nextLong();
+            long a [] = new long[n];
+            long sum=0;
+            long max= Long.MIN_VALUE;
+            for (int i = 0; i < n; i++) {
+                a[i] = fr.nextLong();
+                sum+=a[i];
+                max= Math.max(max, a[i]);
+            }
+            long sub =Integer.MIN_VALUE;
+            long sumkadane=0;
+            for (int i = 0; i < n; i++) {
+                sumkadane += a[i];
+                if(sumkadane<0){
+                    sumkadane=0;
+                }
+                sub = Math.max(sumkadane, sub);
+            }
+//            System.out.println(sub);
+            if(sub<=0)sub = Math.max(max, sub);
+               if(sub>0){
+                   while (k > 0) {
+                       sum += sub;
+                       sub *= 2;
+                       sum= sum%nmax;
+                       sub = sub%nmax;
+                       k--;
+//                System.out.println(sum);
+                   }
+               }
+               System.out.println(((sum % nmax) + nmax) % nmax);
+
+        }
+    }
+
+
+
+
+
+
+    public static class Pair {
+        public int a;
+        public int  b;
+        public int hashCode;
+
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+            this.hashCode = Objects.hash(a, b);
+        }
+
+
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
+        }
+    }
+
+}
+
+
+
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                // Read the next line
+                String line = br.readLine();
+
+                // Check if the line is null
+                if (line == null) {
+                    return null;  // Handle end of input or unexpected input issues
+                }
+
+                // Initialize the StringTokenizer with the read line
+                st = new StringTokenizer(line);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) {
+                str = st.nextToken("\n");
+            } else {
+                str = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
+
+
