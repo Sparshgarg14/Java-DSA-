@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class Main {
+
+    static void solve(Scanner sc) {
+        int n = sc.nextInt();
+        int[] a = new int[n + 1];
+
+        for (int i = 1; i <= n; i++) {
+            a[i] = sc.nextInt();
+        }
+
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = true;
+
+        for (int i = 1; i <= n; i++) {
+            if (i + a[i] <= n && dp[i - 1]) {
+                dp[i + a[i]] = true;
+            }
+            if (i - a[i] - 1 >= 0 && dp[i - a[i] - 1]) {
+                dp[i] = true;
+            }
+        }
+
+        System.out.println(dp[n] ? "YES" : "NO");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+
+        for (int tt = 0; tt < t; tt++) {
+            solve(sc);
+        }
+
+        sc.close();
+    }
+}
