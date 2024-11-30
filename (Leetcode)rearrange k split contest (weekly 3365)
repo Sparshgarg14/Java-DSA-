@@ -1,0 +1,23 @@
+class Solution {
+    public boolean isPossibleToRearrange(String s, String t, int k) {
+         List<String> list = new ArrayList<>();
+         List<String>res = new ArrayList<>();
+         int l = s.length()/k;
+            for (int i = 0; i < s.length(); i=i+l) {
+                String a = s.substring(i,i+l);
+                list.add(a);
+            }
+             for (int i = 0; i < t.length(); i=i+l) {
+                String b = t.substring(i,i+l);
+                res.add(b);
+            }
+            Collections.sort(list);
+             Collections.sort(res);
+            
+             if(res.equals(list))return true;
+             else return false;
+
+       
+      
+    }
+}
