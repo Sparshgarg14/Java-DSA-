@@ -1,0 +1,150 @@
+import javax.management.MBeanRegistration;
+import java.awt.image.AreaAveragingScaleFilter;
+import java.io.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Array;
+import java.util.*;
+
+// JAI SHREE RAM  JAI BAJRANGBALI//
+
+
+public class CodeForces {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FastReader fr = new FastReader();
+        int nmax = (int) (1e5 + 7);
+        int t = fr.nextInt();
+        int MOD = (int) 1e9 + 7;
+        while (t-- > 0) {
+            int capacity[] = {91,54,63,99,24,45,78};
+            int rocks[] = {35,32,45,98,6,1,25};
+            int add=17;
+            int n = rocks.length;
+            int ans =0;
+            for(int i =0;i<n;i++){
+                if(capacity[i]==rocks[i])ans++;
+            }
+            List<Pair>list =new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                list.add(new Pair(rocks[i],capacity[i]-rocks[i]));
+            }
+            Collections.sort(list,Comparator.comparingInt(pair->pair.b));
+            System.out.println(list);
+            int res =0;
+            for(int i =0;i< list.size() && add>0;i++){
+                if(list.get(i).b!=0 && add>list.get(i).b){
+                    rocks[i]+=list.get(i).b;
+                    add-=list.get(i).b;
+                    res++;
+                }
+                else if(list.get(i).b==0)res++;
+                ans = Math.max(ans, res);
+            }
+            System.out.println(ans);
+        }
+    }
+
+
+
+
+
+
+    public static class Pair {
+        public int a;
+        public int  b;
+        public int hashCode;
+
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+            this.hashCode = Objects.hash(a, b);
+        }
+
+
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
+        }
+    }
+
+}
+
+
+
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                String line = br.readLine();
+
+                if (line == null) {
+                    return null;
+                }
+
+                st = new StringTokenizer(line);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) {
+                str = st.nextToken("\n");
+            } else {
+                str = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+    public static long gcd(long a, long b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+}
