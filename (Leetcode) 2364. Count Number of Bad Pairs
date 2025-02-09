@@ -1,0 +1,24 @@
+class Solution {
+    public long countBadPairs(int[] nums) {
+        long n  =nums.length;
+         long ans = n*(n-1)/2;
+        //   System.out.println(ans );
+        long a[]  =new long[(int)n];
+        for(int i =0;i<n;i++){
+            a[i] = i - nums[i];
+        }
+        HashMap<Long, Long>map = new HashMap<>();
+        for(long v: a){
+            map.put(v, map.getOrDefault(v,(long)0)+1);
+        }
+        long res = 0;
+        for(long v: map.keySet()){
+           
+                long x = map.get(v);
+                res+=(x*(x-1))/2;
+            
+        }
+             
+        return ans- res;         
+    }
+}
