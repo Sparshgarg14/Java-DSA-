@@ -1,0 +1,42 @@
+class Solution {
+    public int maximumSum(int[] nums) {
+        int max[] = new int[82]; //9 x 9 for 9 digits max
+        int ans=-1;
+         for(int i :nums){
+            int sum=0;
+            int temp = i;
+            while(temp!=0){
+                sum+=temp%10;
+                temp/=10;
+            }
+            if(max[sum]!=0){
+                ans  = Math.max(ans, i + max[sum]);
+            }
+            max[sum] = Math.max(max[sum], i);
+         }
+
+           
+return ans;
+}
+}
+
+*///alternative naive approach 
+ List<Pair>list = new ArrayList<>();
+            for(int i=0;i<nums.length;i++){
+                int x=0;
+                String s = String.valueOf(nums[i]);
+                for(char ch:s.toCharArray()){
+                    x+=ch-'0';
+                }
+                list.add(new Pair(nums[i], x));
+            }
+            list.sort(Comparator.comparingInt((Pair p) -> p.b)
+                    .thenComparingInt(p -> p.a));
+            int ans =-1;
+            for(int i =0;i< list.size()-1;i++){
+                if(list.get(i).b==list.get(i+1).b){
+                    ans  = Math.max(ans, list.get(i).a+ list.get(i+1).a);
+                }
+            }
+          return ans;
+///*
