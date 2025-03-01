@@ -1,0 +1,25 @@
+class Solution {
+    public int[] applyOperations(int[] nums) {
+            int i =0;
+            int n  = nums.length;
+            int res[] = new int[n];
+            while(i<n){
+                if(i+1<n){
+                    if(nums[i]==nums[i+1]){
+                        nums[i] *=2;
+                        nums[i+1]=0;
+                    }
+                }
+                i++;
+            }
+            int k =0;
+            for (int j = 0; j < nums.length; j++) {
+                while(k<n && nums[k]==0)k++;
+              if(k<n) res[j] = nums[k];
+                k++;
+            }
+
+           return res;
+//
+    }
+}
