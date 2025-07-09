@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        
+        List<List<Integer>>res = new ArrayList<>();
+        HashSet<Integer>ht= new HashSet<>();
+       List<Integer>list = new ArrayList<>();
+       
+      recursion(0,res,list,ht,nums);
+      return res;
+
+    }
+
+    public static void recursion(int idx,List<List<Integer>>res,List<Integer>list, HashSet<Integer>ht, int nums[]){
+       if(idx>=nums.length){
+        res.add(new ArrayList(list));
+        return;
+       }
+       
+        
+       for(int i =0;i<nums.length;i++){
+            if(!ht.contains(nums[i])){
+                
+                    list.add(nums[i]);
+                     ht.add(nums[i]);
+                      recursion(idx+1,res,list,ht,nums);
+                      list.remove(list.get(list.size()-1));
+                      ht.remove(nums[i]);
+                }
+       }
+    }
+}
