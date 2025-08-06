@@ -1,0 +1,35 @@
+class Solution {
+    public static int ans =-1;
+    public int maximumSumSubsequence(int[] nums, int[][] queries) {
+        
+        int sum=0;
+        int res=0;
+      
+         for(int i =0;i<queries.length;i++){
+           sum=0;
+           ans =0;
+           HashSet<Integer>vis  = new HashSet<>();
+           nums[queries[i][0]] = queries[i][1];
+           recursion(0,nums,vis,sum);
+           res+=ans;
+           System.out.println(Arrays.toString(nums));
+           System.out.println(ans);
+       }
+      
+        return res;
+    }
+    public static void recursion(int idx, int nums[], HashSet<Integer> vis,int sum){
+        if(idx>=nums.length){
+            ans = Math.max(ans, sum);
+            return;
+        } 
+          for(int i =idx;i<nums.length;i++){
+             if(!vis.contains(i)){
+                vis.add(i);
+                recursion(i+1,nums,vis,sum+nums[i]);
+                vis.remove(i);
+              }
+         }
+
+    }
+}
