@@ -1,0 +1,31 @@
+class Solution {
+    public static int ans  = Integer.MAX_VALUE;
+    public static int[][]dp;
+    public int minPathSum(int[][] grid) {
+        ans=Integer.MAX_VALUE;
+        int sum=0;
+        dp = new int[grid.length][grid[0].length];
+        recursion(0,0,grid,sum);
+        return ans;
+
+    }
+    public static void recursion(int row,int col,int grid[][],int sum){
+
+        if(row>=grid.length || col>=grid[0].length)return;
+        if(row==grid.length-1 && col==grid[0].length-1){
+            //  System.out.println("row" + " " + row + "col" + " " + col);
+             ans = Math.min(ans,sum+grid[row][col]);
+             return ;
+        }
+           if (dp[row][col] != 0 && dp[row][col] <= sum+grid[row][col]) return;
+          
+           dp[row][col] = sum + grid[row][col];
+          
+    recursion(row,col+1,grid,sum+grid[row][col]);
+
+      recursion(row+1,col,grid,sum+grid[row][col]);
+         
+
+
+    }
+}
