@@ -1,0 +1,30 @@
+class Solution {
+    Boolean dp[][];
+    public boolean canPartition(int[] nums) {
+         int sum=0;
+         for(int i :nums)sum+=i;
+         dp = new Boolean[nums.length][sum/2 + 1];
+         if(sum%2!=0)return false;
+
+       return recursion(0,nums,0,sum/2);
+
+         
+        
+    }
+    public boolean recursion(int idx,int nums[],int checksum, int target){
+       if (checksum == target) return true;
+
+        //  stop if we exceed bounds
+        if (idx >= nums.length || checksum > target) return false;
+
+          if(dp[idx][checksum]!=null)return dp[idx][checksum]; 
+        boolean take =recursion(idx+1,nums,checksum+nums[idx],target);
+        
+        boolean notTake  = recursion(idx+1,nums,checksum,target);
+       
+       return dp[idx][checksum]  =  take || notTake;
+        
+        
+    }
+    
+}
