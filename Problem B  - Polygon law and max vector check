@@ -1,0 +1,199 @@
+import javax.management.MBeanRegistration;
+import java.io.*;
+import java.math.BigInteger;
+import java.sql.Array;
+import java.sql.SQLOutput;
+import java.util.*;
+
+// JAI SHREE RAM  JAI BAJRANGBALI//
+
+
+
+public class CodeForces {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FastReader fr = new FastReader();
+        long nmax = (long) (1e9 + 7);
+        int t = fr.nextInt();
+        while (t-- > 0) {
+
+            /*
+            the problem statement
+              px,py start point , have to travel distance  = a
+             if->  Math.sqrt((x- px)^2 + (y-py)^2) = a then move forward , is it possible to reach end point qx, qy
+              n operations to be performed
+
+             */
+
+            /*
+            small observations and understandings
+               I can get the shortest distance between two points by getting the euclidean distance , if the sum of units is less than the euclidean distance , then the answer is not possible
+                if sum =8 , dis = 4
+                operations cannot be performed in any order
+             */
+
+
+            /*
+            Algo that works in the question
+               I was not much concerned on each move I had to make like the case
+               for sum=10
+               dis = 6
+               moves= [9,1]
+               my code would give it Yes but the answer is No
+               I had to look into the observation that if like koi ek move bhut zyada badha h then what , I wont be able to get back to the element ever again, therefore focus on each move was the main intuition that was required
+
+             */
+           int n  = fr.nextInt();
+           int px = fr.nextInt();
+           int py = fr.nextInt();
+           int qx = fr.nextInt();
+           int qy = fr.nextInt();
+           long units[]  =new long[n];
+           long sum=0;
+           double avg  =0;
+           double max = -1.0;
+           for(int i =0;i<n;i++){
+               units[i] = fr.nextLong();
+               sum+=(long)(units[i]);
+               max = Math.max(max,units[i]);
+           }
+
+           long dissquare = (long)(Math.abs(px-qx))*(long)(Math.abs((px-qx))) + (long)(Math.abs(py-qy))*(long)(Math.abs(py-qy));
+           double dis =  Math.sqrt(dissquare);
+           if(dis<=sum &&  dis>=Math.max(0,max- (sum-max))){
+               System.out.println("Yes");
+           }
+           else {
+               System.out.println("No");
+           }
+
+        }
+
+
+
+
+
+
+
+        }
+   public static  int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+
+
+
+
+
+
+
+
+    public static class Pair {
+        public int a, b;
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+
+        }
+
+
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+
+
+    }
+
+}
+
+
+
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                // Read the next line
+                String line = br.readLine();
+
+                // Check if the line is null
+                if (line == null) {
+                    return null;  // Handle end of input or unexpected input issues
+                }
+
+                // Initialize the StringTokenizer with the read line
+                st = new StringTokenizer(line);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) {
+                str = st.nextToken("\n");
+            } else {
+                str = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
+
+
+
+/*
+3 4
+0 1 2
+0 2 1
+1 0 2
+s =6
+if sum ==s ans =-1
+if sum %s==0 ans =-1
+
+
+3 10
+0 1 2
+ */
