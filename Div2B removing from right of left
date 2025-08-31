@@ -1,0 +1,192 @@
+import javax.management.MBeanRegistration;
+import java.io.*;
+import java.lang.management.MemoryType;
+import java.math.BigInteger;
+import java.sql.Array;
+import java.sql.SQLOutput;
+import java.util.*;
+
+// JAI SHREE RAM  JAI BAJRANGBALI//
+//see what I can do to and I should try to prove the solution
+
+//the problem statement
+/*
+
+ */
+
+
+// small observations and understandings
+/*
+I had cracked the intuition that is think of taking the maximum and the minimum element ,it ll always break the order , later below here I ll be trying to prove the solution mathematically
+
+*/
+
+
+
+
+
+//Algo that works in the question(Claimed)
+/*
+Proof of the solution
+We know that there are only two cases possible because the array follow permutaion elements
+First assumption  - if a[l]<a[r] ,l =left extreme and r  = right extreme
+now, at odd chance I ll take minimum element of both the ranges a[l], a[r]
+q1 = min(a[l],a[r])<=a[l] || <=a[r] ,cause I assumed that a[l]<a[r] so q1 = a[l]
+now at even interval that is finding q2
+q2 = max(a[l+1],a[r]) if q2 = a[l+1], then a[l+1]>a[r] && because a[l]<a[r] therefore a[l+1]>a[l]
+q1<q2>q3.... and so on..
+*/
+
+
+
+public class CodeForces {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FastReader fr = new FastReader();
+        long nmax = (long) (1e9 + 7);
+        int t = fr.nextInt();
+        while (t-- > 0) {
+            int n = fr.nextInt();
+            int arr[] = new int[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = fr.nextInt();
+            }
+            int l=0,r=n-1;
+
+            for (int i = 0; i < n; i++) {
+                if(i%2==0){
+                    if(arr[l]<arr[r]){
+                        System.out.print("L");
+                        l++;
+                    }
+                    else {
+                        System.out.print("R");
+                        r--;
+                    }
+                }
+                else{
+                    if(arr[l]>arr[r]){
+                        System.out.print("L");
+                        l++;
+                    }
+                    else {
+                        System.out.print("R");
+                        r--;
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
+
+
+
+   public static  int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+
+
+
+
+
+
+
+
+    public static class Pair {
+        public int a, b;
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+
+        }
+
+
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+
+
+    }
+
+}
+
+
+
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                // Read the next line
+                String line = br.readLine();
+
+                // Check if the line is null
+                if (line == null) {
+                    return null;  // Handle end of input or unexpected input issues
+                }
+
+                // Initialize the StringTokenizer with the read line
+                st = new StringTokenizer(line);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) {
+                str = st.nextToken("\n");
+            } else {
+                str = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
+
+
